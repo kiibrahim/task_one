@@ -1,7 +1,7 @@
 <template>
     <div class="overview">
         <Chart></Chart>
-        <Data></Data>
+        <Data class="data"></Data>
 
     </div>
 </template>
@@ -21,4 +21,6 @@ export default {
     display: grid;
     grid-template-rows: 5fr 3fr;
   }
+  .data{  margin-left: auto;
+    margin-right: auto;}
 </style>

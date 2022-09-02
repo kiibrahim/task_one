@@ -1,100 +1,127 @@
 <template>
-<div>
-    <h1>Welcome,User!</h1>
-    <h2>Dashboard</h2>
-    <div class="chart">
-        <div class="chart1">
-            <canvas id="myChart" width="600" height="400"></canvas>
-        </div>
-        <div class="chart2">
-            <canvas id="myChart2" width="600" height="400"></canvas>
+    <div>
+        <h1>Welcome,User!</h1>
+        <h2>Dashboard</h2>
+        <div class="chart">
+            <div class="chart1">
+                <canvas id="myChart" width="600" height="400"></canvas>
+            </div>
+            <div class="chart2">
+                <canvas id="myChart2" width="600" height="400"></canvas>
+            </div>
         </div>
     </div>
-</div>
 </template>
 
 <script>
 import Chart from 'chart.js';
+import axios from 'axios';
 
 export default {
-    mounted(){
+    name: 'chart',
+    data() {
+        return {
+            
+        }
+    },
+    mounted() {
+        
+        // let xData = []
+        // let yData = []
+        
+        async function status() {
+            const url = "http://localhost:8082/";
+            let response = await axios.get(url);
+            return response.data;
+        }
+
+        status().then((data) => {
+            //console.log(data)
+            // for (let each = 0; each < data.length; each++) {
+            //     xData.push(data[each].day)
+            //     yData.push(data[each].Sale)
+            // }
+            var myLabels = data.map(function(e) {
+                return e.day;
+            });
+            console.log(myLabels)
+            var myData = data.map(function(e){
+                return e.Sale
+            });
+            console.log(myData)
+            const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: myLabels,
+                datasets: [{
+                    label: '# of sales',
+                    data: myData,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(134, 39, 142, 0.2)',
+                        'rgba(45, 49, 152, 0.2)',
+                        'rgba(15, 59, 162, 0.2)',
+                        'rgba(05, 69, 172, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(134, 39, 142, 1)',
+                        'rgba(45, 49, 152, 1)',
+                        'rgba(15, 59, 162, 1)',
+                        'rgba(05, 69, 172, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        });
+        //console.log(xData)
+        //console.log(yData)
+
         const ctx = document.getElementById('myChart');
         const ctx2 = document.getElementById('myChart2');
-        const myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+
+        //console.log(myLabels)
+
+        
+        const data = {
+            labels: [
+                'Chemical',
+                'Device',
+                'Service'
+            ],
             datasets: [{
-                label: '# of sales',
-                data: [12, 19, 3, 5, 2, 3,5,3,7,1,9,4],
+                label: 'My First Dataset',
+                data: [300, 50, 100],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)','rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
-    const data = {
-        labels: [
-            'Chemical',
-            'Device',
-            'Service'
-        ],
-        datasets: [{
-        label: 'My First Dataset',
-        data: [300, 50, 100],
-        backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)'
-        ],
-        hoverOffset: 4
-     }]
-};
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                ],
+                hoverOffset: 4
+            }]
+        };
         const myChart2 = new Chart(ctx2, {
             type: 'doughnut',
             data: data,
         });
+
     }
 }
 </script>
 <style>
-.chart{
+.chart {
     box-sizing: border-box;
     display: grid;
     grid-template-rows: 12fr 1fr;
-    grid-template-columns: 12fr 6fr;
+    grid-template-columns: 2fr 1fr;
     border: 1px solid black;
 }
 </style>
