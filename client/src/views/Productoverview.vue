@@ -2,16 +2,16 @@
     <div >
         <h1>Welcome,User!</h1>
         <h2>Dashboard</h2>
-        <router-link to="product" tag="button" class="logout">
+        <router-link to='dashboard' tag="button" class="logout">
             <div class="link_container">
-                To Product Overview
+                To Daily Overview
             </div>
         </router-link>
         <div class="overview">
         <div class="chart">
-            <Chart></Chart>
+            <PieChart></PieChart>
         </div>
-        <Data class="data"></Data>
+        <Productdata class="data"></Productdata>
     </div>
         
  </div>
@@ -19,12 +19,15 @@
 <script>
 import Chart from '@/components/Chart'
 import Data from '@/components/Data'
-import PieChart from '../components/PieChart.vue';
+import Productdata from '@/components/Productdata'
+
+import PieChart from '../components/PieChart.vue'
 export default {
     components:{
     Chart,
     Data,
-    PieChart
+    PieChart,
+    Productdata
 }
 }
 </script>

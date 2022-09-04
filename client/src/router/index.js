@@ -32,6 +32,10 @@ export default new Router({
         {
           path: '/contact',
           component: () => import('../views/Contact')
+        },
+        {
+          path: '/product',
+          component: () => import('../views/Productoverview')
         }
       ]
     },

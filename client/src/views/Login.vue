@@ -15,16 +15,17 @@
             <h3>Please sign in to continue.</h3>
         </div>
         <form id="form">
-            <input type="email"
-                    name="email"
-                    v-model="email" 
-                    placeholder="email"
+            <input type="text"
+                    name="text" 
+                    placeholder="userId"
+                    v-model="userId"
                     required/>
             <br/>
             <br/>
             <input type="password" 
                     name="password"
                     placeholder="password"
+                    v-model="userPass"
                     required/>
             <br/>
             <div id="check">
@@ -33,7 +34,7 @@
             <br/>
             <router-link id="link" to="/recover_password">Forgot password?</router-link>
             <br>
-             <button v-on:click="register" ><router-link id="link" to="/dashboard">Sign in</router-link></button>
+             <button><router-link id="link" to="/dashboard">Sign in</router-link></button>
         </form>
         
     </div>
@@ -43,22 +44,29 @@
 
 <script>
 import Footer from '@/components/Footer'
-import Authentication from '@/services/Authentication';
+import axios from 'axios';
 export default {
     name: "Login",
     data() {
         return {
-            email: ''
+            userId: [],
+            userPass:[]
         }
     },
-    methods: {
-        async register(){
-            const response = await Authentication.register({
-                email: this.email
-            })
-            console.log(response.data)
-            //console.log("clicked", this.email, this.passowrd)
+    mounted() {
+        async function status() {
+            const url = "http://localhost:8082/user";
+            let response = await axios.get(url);
+            return response.data;
         }
+
+        status().then((data) => {
+            for (let each = 0; each < data.length; each++) {
+                this.userId.push(data[each].userId)
+                this.userPass.push(data[each].password)
+            }
+        })
+        console.log(this.userInfo)
     },
     components: { 
         Footer

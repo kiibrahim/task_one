@@ -1,3 +1,5 @@
+//console.log("Hi")
+
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
@@ -16,35 +18,24 @@ app.use(bodyParser.json())
 var connectionString = 	"mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.5.4"
 var database = "data"
 
-//
-//var myobj = { userId: "Ajeet Kumar", password: "28" }
 
 
-//
+
+// app.post('', (req, res) =>{
+//     res.send({
+//         message: `Hello! ${req.body.email}, You are registered!`
+//     })
+// })
+
 app.get('',(req,res)=>{
-    database.collection("dailyData").find({}).toArray((error ,result)=>{
+    database.collection("userDetails").find({}).toArray((error ,result)=>{
         if(error){
             console.log(error)
         }
         res.send(result)
     })
 })
-app.get('/product',(req,res)=>{
-    database.collection("products").find({}).toArray((error ,result)=>{
-        if(error){
-            console.log(error)
-        }
-        res.send(result)
-    })
-})
-app.get('/user',(req,res)=>{
-   database.collection("userDetails").find({}).toArray((error ,result)=>{
-        if(error){
-            console.log(error)
-        }
-        res.send(result)
-    })
-})
+
 
 
 

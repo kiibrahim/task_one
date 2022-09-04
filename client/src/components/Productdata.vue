@@ -1,19 +1,19 @@
 <template>
     <div class="data">
         <!-- Table for showcasing the data -->
-        <table id="weekTable">
+        <table id="productTable">
             <thead>
-                <h4>Daily Sales Report</h4>
+                <h4>Product Sales Report</h4>
                 <tr>
-                    <th>Day</th>
+                    <th>Product</th>
                     <th>Sale</th>
                 </tr>
             </thead>
             <tbody>
                 <!-- for lopp to get each data individually -->
-                <tr v-for="data in datas">
-                    <td>{{ data.day }}</td>
-                    <td>{{ data.sale }}</td>
+                <tr v-for="product in products">
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.sale }}</td>
                 </tr>
             </tbody>
         </table>
@@ -24,14 +24,14 @@ import axios from 'axios'
 export default {
     data() {
         return {
-            datas: []
+            products: []
         }
     },
     mounted() {
-        //connect to the server
-        axios.get('http://localhost:8082/').then((response) => {
+       //connect to the server
+        axios.get('http://localhost:8082/product').then((response) => {
             //console.log(response.data)
-            this.datas = response.data
+            this.products = response.data
         })
     }
 }

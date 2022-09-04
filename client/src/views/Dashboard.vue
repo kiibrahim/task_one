@@ -30,8 +30,8 @@ export default {
     background-color: #575656;
     height: 100vh;
     width: 100vw;
-    padding-bottom: 100px;
     min-height: 100vh;
+    min-width:100vh;
 }
 .content{
     background-color: whitesmoke;
