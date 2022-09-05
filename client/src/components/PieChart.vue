@@ -11,20 +11,20 @@ import axios from 'axios';
 export default {
     name: 'pieChart',
     mounted() {
-        async function status() {
+        async function productData() {
             const url = "http://localhost:8082/product";
             let response = await axios.get(url);
             return response.data;
         }
 
-        status().then((datas) => {
+        productData().then((datas) => {
           
-            var myLabels = datas.map(function (e) {
-                return e.name;
+            var myLabels = datas.map(function (index) {
+                return index.name;
             });
             console.log(myLabels)
-            var myData = datas.map(function (e) {
-                return e.sale
+            var myData = datas.map(function (index) {
+                return index.sale
             });
             console.log(myData)
             const data = {

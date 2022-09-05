@@ -31,7 +31,8 @@ export default {
     height: 100vh;
     width: 100vw;
     min-height: 100vh;
-    min-width:100vh;
+    min-width: 100vw;
+
 }
 .content{
     background-color: whitesmoke;

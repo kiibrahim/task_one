@@ -4,23 +4,15 @@ const cors = require('cors')
 const mongoClient = require('mongodb').MongoClient
 
 
-
 const app = express()
 //had to add cors to make the axios work
 app.use(cors())
 app.use(bodyParser.json())
 
-
-
 //const mongoConnect = mongoose.connect('mongodb://127.0.0.1:27017/namwwdce').then(console.log("Connected!"))
 var connectionString = 	"mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.5.4"
 var database = "data"
 
-//
-//var myobj = { userId: "Ajeet Kumar", password: "28" }
-
-
-//
 app.get('',(req,res)=>{
     database.collection("dailyData").find({}).toArray((error ,result)=>{
         if(error){

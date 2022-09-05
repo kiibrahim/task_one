@@ -25,13 +25,13 @@ export default {
             let response = await axios.get(url);
             return response.data;
         }
-        //get each day data for labeling
+        //get each day data for labeling array
         chartDailyAmount().then((data) => {
             var myLabels = data.map(function (index) {
                 return index.day;
             });
             console.log(myLabels)
-            //get each day's sale
+            //get each day's sale array
             var myData = data.map(function (index) {
                 return index.sale
             });

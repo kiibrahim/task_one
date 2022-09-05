@@ -24,7 +24,7 @@
                 Contact Us
             </div>
         </router-link>
-        <router-link to="/" tag="button" class="logout">
+        <router-link to="/" tag="button" class="side-btn">
             <div class="link_container">
                 Log out
             </div>
