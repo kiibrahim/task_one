@@ -55,7 +55,7 @@ export default {
     },
     mounted() {
         async function status() {
-            const url = "http://localhost:8082/user";
+            const url = "http://localhost:8082/randomuser";
             let response = await axios.get(url);
             return response.data;
         }

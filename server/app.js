@@ -13,6 +13,16 @@ app.use(bodyParser.json())
 var connectionString = 	"mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.5.4"
 var database = "data"
 
+
+//random user data
+var random = Math.floor(100000 + Math.random() * 900000)
+var userID = ("DE"+random)
+var userDetails = [{userId: userID}]
+console.log(userDetails)
+
+//
+
+
 app.get('',(req,res)=>{
     database.collection("dailyData").find({}).toArray((error ,result)=>{
         if(error){
@@ -29,8 +39,8 @@ app.get('/product',(req,res)=>{
         res.send(result)
     })
 })
-app.get('/user',(req,res)=>{
-   database.collection("userDetails").find({}).toArray((error ,result)=>{
+app.get('/randomuser',(req,res)=>{
+   database.collection("randomuser").find({}).toArray((error ,result)=>{
         if(error){
             console.log(error)
         }
@@ -44,5 +54,14 @@ app.listen(8082,()=>{
     mongoClient.connect(connectionString,{useNewUrlParser:true},(error,client)=>{
         database = client.db(database)
         console.log("Connected")
+        var random = Math.floor(100000 + Math.random() * 900000)
+var userID = ("DE"+random)
+var userDetails = {userId: userID, password: 123456}
+console.log(userDetails)
+database.collection("randomuser").insertOne(userDetails,(err,res)=>{
+    if (err) throw err;
+    console.log("1 document inserted");
+})
+
     })
 })
