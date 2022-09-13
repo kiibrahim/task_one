@@ -2,9 +2,14 @@
     <div >
         <h1>Welcome,User!</h1>
         <h2>Dashboard</h2>
-        <router-link to="product" tag="button" class="logout">
+        <router-link to="product" tag="button">
             <div class="link_container">
                 To Product Overview
+            </div>
+        </router-link>
+        <router-link to="table" tag="button">
+            <div class="link_container">
+                To add data
             </div>
         </router-link>
         <div class="overview">

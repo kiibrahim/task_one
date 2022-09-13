@@ -24,7 +24,12 @@
                 Contact Us
             </div>
         </router-link>
-        <router-link to="/" tag="button" class="side-btn">
+        <router-link to="sorting" active-class="active" tag="button" class="side-btn">
+            <div class="link_container">
+               Sorting Search
+            </div>
+        </router-link>
+        <router-link to="/" tag="button" class="logout">
             <div class="link_container">
                 Log out
             </div>

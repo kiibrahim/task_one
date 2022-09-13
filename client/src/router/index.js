@@ -36,6 +36,14 @@ export default new Router({
         {
           path: '/product',
           component: () => import('../views/Productoverview')
+        },
+        {
+          path: '/table',
+          component: () => import('../views/Table')
+        },
+        {
+          path: '/sorting',
+          component: () => import('../views/Sort')
         }
       ]
     },
