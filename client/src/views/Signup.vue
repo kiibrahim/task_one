@@ -29,10 +29,6 @@
               <input type="radio" name="radiogroup1" id="rd2">
               <label for="rd2">Female</label>
               </div>
-            <div >
-            	<input type="checkbox" id="cb1">
-    			<label for="cb1">I agree with terms and conditions</label>
-            </div>
              <input class="button" type="submit" value="Register" />
         </form>
       </div>

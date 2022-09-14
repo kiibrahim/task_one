@@ -16,7 +16,9 @@
     "axios": "^0.27.2",
     "chart.js": "^2.9.4",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-multi-date-picker": "^1.5.0",
+    "vue-router": "^3.0.1",
+    "vue2-daterange-picker": "^0.6.8"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.12.1",

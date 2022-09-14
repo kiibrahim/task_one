@@ -2,13 +2,14 @@
     <div>
         <h1>Welcome,User!</h1>
         <h2>Search</h2>
+        <!-- form for searching with database -->
         <form>
             <input type="text" v-model="TimeStamp" placeholder="Timestamp" id="timeStamp" required /><br />
             <button @click="search" type="submit">
                 Search
             </button>
         </form><br />
-        <!-- //dropdown -->
+        <!-- dropdown -->
         <select @change="onChange($event)">
             <option value="noFilter">No Filter</option>
             <option value="dateAscending">Date Ascending</option>
@@ -18,11 +19,12 @@
             <thead>
                 <h4>Daily Sales Report</h4>
                 <tr>
-                    <th>Entry Timestamp</th>
+                    <th>Entry Date</th>
                     <th>Day</th>
                     <th>UserId</th>
                     <th>Sales</th>
                     <th>TimeStamp</th>
+                    <th>Exit Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,6 +35,7 @@
                     <td>{{ data.UserId }}</td>
                     <td>{{ data.Sales }}</td>
                     <td>{{ data.Timestamp }}</td>
+                    <td>{{ data.exitTimestamp }}</td>
                 </tr>
             </tbody>
         </table>
@@ -47,6 +50,7 @@ export default {
         }
     },
     methods: {
+        //search function to get the data which are more than the inserted timestamp
         search() {
             let timeStamp = this.TimeStamp
             axios.get(`http://localhost:8082/sorttable/${timeStamp}`).then((response) => {
@@ -55,20 +59,21 @@ export default {
 
             })
         },
+        //Filtering according to the date order
         onChange(event) {
             if (event.target.value == 'noFilter') {
                 console.log("noFilter")
             }
             else if (event.target.value == 'dateAscending') {
                 let timeStamp = this.TimeStamp
-                axios.get(`http://localhost:8082/sorttable/dateA/${timeStamp}`).then((response) => {
+                axios.get(`http://localhost:8082/sorttable/dateAscending/${timeStamp}`).then((response) => {
                         this.datas = response.data
                         console.log(this.datas)
                 })
             }
             else if (event.target.value == 'dateDescending') {
                 let timeStamp = this.TimeStamp
-                axios.get(`http://localhost:8082/sorttable/dateD/${timeStamp}`).then((response) => {
+                axios.get(`http://localhost:8082/sorttable/dateDescending/${timeStamp}`).then((response) => {
                         this.datas = response.data
                         console.log(this.datas)
                 })
@@ -77,8 +82,6 @@ export default {
 
     },
 }
-
-
 </script>
 <style>
 .data {
@@ -127,7 +130,7 @@ table tbody tr:nth-child(2n) td {
 }
 
 #weekTable {
-    width: 500px;
+    width: 900px;
     margin: auto;
 
 }

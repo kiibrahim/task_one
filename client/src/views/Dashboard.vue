@@ -28,7 +28,7 @@ export default {
     display: grid;
     grid-template-columns: 1fr 5fr;
     background-color: #575656;
-    height: 125vh;
+    height: 225vh;
     width: 100vw;
    
 

@@ -1,6 +1,5 @@
 <template>
     <div class="about">
-       
         <div class="vision">
             <h1>Our vision</h1>
             <br>
@@ -22,7 +21,9 @@
 </template>
 <script>
 export default {
-    
+    components:{
+      
+    }
 }
 </script>
 <style scoped>
