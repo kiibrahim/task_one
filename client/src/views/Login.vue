@@ -17,16 +17,16 @@
         <form id="form">
             <input type="text"
                     name="text" 
-                    placeholder="userId"
-                    v-model="userId"
-                    required/>
+                    placeholder="username"
+                    v-model="username"
+                    />
             <br/>
             <br/>
             <input type="password" 
                     name="password"
                     placeholder="password"
                     v-model="userPass"
-                    required/>
+                    />
             <br/>
             <div id="check">
             <input type="checkbox" ><label>remember me!</label>
@@ -34,7 +34,7 @@
             <br/>
             <router-link id="link" to="/recover_password">Forgot password?</router-link>
             <br>
-             <button><router-link id="link" to="/dashboard">Sign in</router-link></button>
+             <button @click.prevent="login">Log In</button>
         </form>
         
     </div>
@@ -49,24 +49,38 @@ export default {
     name: "Login",
     data() {
         return {
-            userId: [],
-            userPass:[]
+            username: '',
+            userPass:'',
         }
     },
-    mounted() {
-        async function status() {
-            const url = "http://localhost:8082/randomuser";
-            let response = await axios.get(url);
-            return response.data;
+    methods:{
+        login(){
+               axios.post('http://localhost:8082/loginDetails',{
+                userName: this.username,
+                password: this.userPass
+            })
+            this.username ='',
+            this.userpass = ''
+            axios.get('http://localhost:8082/loginDetails').then((response)=>{
+               //this one is just my idea to match the username and the password
+               //Planning to work with JWT...on progress
+                if(response.data == "LOGGED In"){
+                    this.$router.push('/dashboard')
+                }
+                else if(response.data == "Incorret"){
+                    alert("Incorrect Password")
+                }
+                else{
+                    alert("User not found")
+                }
+            })
+            },
+        getData(){
+           
         }
 
-        status().then((data) => {
-            for (let each = 0; each < data.length; each++) {
-                this.userId.push(data[each].userId)
-                this.userPass.push(data[each].password)
-            }
-        })
-        console.log(this.userInfo)
+    },
+    mounted() {
     },
     components: { 
         Footer
@@ -74,7 +88,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .login_form{
     border: 1px solid black;

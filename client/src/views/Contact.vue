@@ -27,7 +27,7 @@ export default {
 </script>
 <style scoped>
     .something{
-        display: flex;
+    
         justify-content: center;
         align-items: center;
         height: 100%;

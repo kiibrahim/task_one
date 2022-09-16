@@ -35,7 +35,6 @@ export default {
 </script>
 <style scoped>
     .profile{
-        display: flex;
         justify-content: center;
         align-items: center;
         height: 100%;
@@ -49,12 +48,6 @@ export default {
         color: #97bf0d;
         padding-bottom: 8px
     }
-    .container {
-        margin: auto;
-        width: 350px;
-        text-align: center;
-    }
-    .listFlex {display: flex; justify-content: center;}
 
     ul{
         list-style-type: none;

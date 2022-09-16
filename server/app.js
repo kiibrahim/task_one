@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const mongoClient = require('mongodb').MongoClient
+const bcrypt = require('bcrypt')
 
 
 const app = express()
@@ -10,7 +11,7 @@ app.use(cors())
 app.use(bodyParser.json())
 //database connection string to conncet 
 let connectionString = "mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.5.4"
-//my database name
+//database name
 let database = "data"
 //to get the daily data for chartjs
 app.get('', (req, res) => {
@@ -23,6 +24,7 @@ app.get('', (req, res) => {
 })
 //productwise sales data for sales pie chart
 app.get('/product', (req, res) => {
+    //collection name products
     database.collection("products").find({}).toArray((error, result) => {
         if (error) {
             console.log(error)
@@ -32,6 +34,7 @@ app.get('/product', (req, res) => {
 })
 //get the default username and password for login 
 app.get('/randomuser', (req, res) => {
+    //collection name randomuser
     database.collection("randomuser").find({}).toArray((error, result) => {
         if (error) {
             console.log(error)
@@ -39,7 +42,7 @@ app.get('/randomuser', (req, res) => {
         res.send(result)
     })
 })
-//to post the data into the database
+//to post the data into the database collecection dataTable
 app.post('/table', (req, res) => {
     database.collection("dataTable").insertOne({
         randomNumber: req.body['randomNumber'],
@@ -52,6 +55,7 @@ app.post('/table', (req, res) => {
 })
 //fetch the posted data 
 app.get('/table', (req, res) => {
+    //collection name dataTable
     database.collection("dataTable").find({}).toArray((error, result) => {
         if (error) {
             console.log(error)
@@ -87,20 +91,66 @@ app.get('/sorttable/dateAscending/:Timestamp', (req, res) => {
         res.json(result)
     })
 })
+//posting userdetails to the database
+app.post('/registered', async (req, res) => {
+    //const salt = await bcrypt.genSalt(10) 
+   // const hashedPassword = await bcrypt.hash(req.body.password, salt)
+    database.collection("userEntry").insertOne({
+        email: req.body['email'],
+        userName: req.body['userName'],
+        firstName: req.body['firstName'],
+        lastName: req.body['lastName'],
+        password: req.body['password']
+    })
+})
+//fetch
+app.get('/registered', (req, res) => {
+    database.collection("userEntry").find({}).toArray((error, result) => {
+        if (error) {
+            console.log(error)
+        }
+        res.send(result)
+    })
+})
+let uName = null
+let password = null
+app.post('/loginDetails', (req, res)=>{
+   let usernaam =  req.body.userName
+   let pass = req.body.password
 
-
-//connect and auto generated user
+   this.uName =  usernaam
+   this.password =  pass
+})
+//login details match
+app.get('/loginDetails',(req, res)=>{
+    setTimeout(  ()=>{
+database.collection("userEntry").find({userName: this.uName}).toArray((error, result) => {
+        if (error) {
+            console.log(error)
+        }
+        else{
+            if(result.length>0){
+                    if(this.password == result[0].password){
+                        res.send("LOGGED In")
+                    }
+                    else{
+                        res.send("Incorret")
+                    }
+                }
+            else{
+                res.send("User not Found")
+            }
+        }
+       // res.send(result)
+    }) 
+    }  ,10)
+    
+})
+//server and database connection
 app.listen(8082, () => {
     mongoClient.connect(connectionString, { useNewUrlParser: true }, (error, client) => {
         database = client.db(database)
         console.log("Connected")
-        var random = Math.floor(100000 + Math.random() * 900000)
-        var userID = ("DE" + random)
-        var userDetails = { userId: userID, password: 123456 }
-        //console.log(userDetails)
-        database.collection("randomuser").insertOne(userDetails, (err, res) => {
-            if (err) throw err;
-        })
 
     })
 })

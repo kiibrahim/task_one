@@ -7,28 +7,21 @@
     </div>
     <div class="row clearfix">
       <div class="">
-        <form>
+        <form @submit.prevent="save">
           <div class="input_field">
-            <input type="email" name="email" placeholder="Email" required />
+            <input type="email" name="email" placeholder="Email" v-model="email" required />
             <br/>
-            <input type="text" name="name" placeholder="First Name" />
+            <input type="text" name="text" placeholder="username" v-model="userName" required />
             <br/>
-            <input type="text" name="name" placeholder="Last Name" required />
+            <input type="text" name="name" placeholder="First Name" v-model="firstName" required />
             <br/>
-            <input type="password" name="password" placeholder="Password" required />
+            <input type="text" name="name" placeholder="Last Name" v-model="lastName" required />
             <br/>
-            <input type="password" name="password" placeholder="Re-type Password" required />
+            <input type="password" name="password" placeholder="Password" v-model="password" required />
+            <br/>
+            <input type="password" name="password" placeholder="Re-type Password" v-model="verifiedPassword" required />
             <br/>
         </div>
-            <div>
-                <label>Sex</label>
-                <br/>
-              <input type="radio" name="radiogroup1" id="rd1">
-              <label for="rd1">Male</label>
-              <br/>
-              <input type="radio" name="radiogroup1" id="rd2">
-              <label for="rd2">Female</label>
-              </div>
              <input class="button" type="submit" value="Register" />
         </form>
       </div>
@@ -37,8 +30,36 @@
 </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
-    
+    data(){
+      return{
+        email:'',
+        userName:'',
+        firstName:'',
+        lastName:'',
+        password:'',
+        verifiedPassword:''
+      }
+    },
+   
+    methods:{
+      save(){
+        if(this.password == this.verifiedPassword){
+          axios.post('http://localhost:8082/registered',{
+            email: this.email,
+            userName: this.userName,
+            firstName: this.firstName,
+            lastName: this.lastName,
+            password: this.password
+          })
+          this.$router.push('/')
+        }
+        else{
+          alert("Tow password have to be same")
+        }
+      }
+    }
 }
 </script>
 <style>

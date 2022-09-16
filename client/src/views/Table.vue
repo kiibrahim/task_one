@@ -82,8 +82,7 @@ export default {
                 Timestamp: this.TimeStamp,
                 entryTimestamp: this.pickerDates.startDate.toISOString().split('T')[0],
                 exitTimestamp: this.pickerDates.endDate.toISOString().split('T')[0]
-            }
-            )
+            })
         },
         //to fetch the data from server
         getPost() {
